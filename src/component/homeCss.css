@@ -1,0 +1,8 @@
+.main-container{
+    margin-top: 10%;
+}
+.container-item{
+    font-family: Poppins;
+    display: grid;
+    grid-template-columns: 0.4fr 0.4fr 0.4fr;
+}
