@@ -1,25 +1,28 @@
-import React, { useContext } from "react";
+import React ,{useState,useContext,useRef}from "react";
 import noteContext from "../context/notes/noteContext";
-import { useState } from "react";
 
-function AddNote() {
-  const context = useContext(noteContext);
-  const { addNote } = context;
-  const [note, setNote] = useState({
-    title: "",
-    description: "",
-    tag: "",
-  });
-  const handleClick = (e) => {
-    e.preventDefault();
-    addNote(note.title, note.description, note.tag);
-  };
-  const onChange = (e) => {
-    setNote({ ...note, [e.target.name]: e.target.value });
-  };
+function EditNoteModal() {
+    const context = useContext(noteContext);
+    const { addNote } = context;
+    const [note, setNote] = useState({
+      title: "",
+      description: "",
+      tag: "",
+    });
+    const handleClick = (e) => {
+      e.preventDefault();
+    };
+    const onChange = (e) => {
+      setNote({ ...note, [e.target.name]: e.target.value });
+    };
+    const updateNote = (currentNote) => {
+        ref.current.click();
+        setNote(currentNote)
+    
+      };
+      const ref = useRef(null);
   return (
     <>
-      <h1 className="container">Add New Notes</h1>
       <div className="form-main my-3 container">
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
@@ -28,8 +31,9 @@ function AddNote() {
           <input
             type="text"
             className="form-control"
-            id="title"
-            name="title"
+            id="etitle"
+            name="etitle"
+            value={note.title}
             placeholder="Title Please !"
             onChange={onChange}
           />
@@ -40,9 +44,10 @@ function AddNote() {
           </label>
           <textarea
             type="text"
-            name="description"
+            value={note.description}
+            name="edescription"
             className="form-control"
-            id="description"
+            id="edescription"
             rows="3"
             onChange={onChange}
           ></textarea>
@@ -51,20 +56,17 @@ function AddNote() {
           </label>
           <input
             type="text"
-            name="tag"
-            className="form-control"
-            id="tag"
-            rows="3"
+            name="etag"
+            value={note.tag}
             onChange={onChange}
+            className="form-control"
+            id="etag"
+            rows="3"
           ></input>
-
-          <button className="btn btn-success my-3" onClick={handleClick}>
-            Add Note
-          </button>
         </div>
       </div>
     </>
   );
 }
 
-export default AddNote;
+export default EditNoteModal;
